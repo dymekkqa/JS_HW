@@ -1,22 +1,22 @@
-const item_1 = 5;
-console.log(item_1);
+const ITEM_1 = 5;
+console.log(ITEM_1);
 
-const item_2 = 3;
-console.log(item_2);
+const ITEM_2 = 3;
+console.log(ITEM_2);
 
-let item_3 = item_1 + item_2;
-console.log(item_3);
+let ITEM_3 = ITEM_1 + ITEM_2;
+console.log(ITEM_3);
 
-const item_4 = "Yolochka";
-console.log(item_4);
-console.log(item_3 + item_4);
-console.log(item_3 * item_4);
+const ITEM_4 = "Yolochka";
+console.log(ITEM_4);
+console.log(ITEM_3 + ITEM_4);
+console.log(ITEM_3 * ITEM_4); // Здесь будет ошибка из-за попытки умножения числа на строку
 
-let item_5 = item_3;
-const item_6 = 15;
-let item_6_type = typeof item_6;
-console.log('item_6==' + item_6, 'item_6_type==' + item_6_type);
+let ITEM_5 = ITEM_3;
+const ITEM_6 = 15;
+let ITEM_6_TYPE = typeof ITEM_6;
+console.log('ITEM_6==' + ITEM_6, 'ITEM_6_TYPE==' + ITEM_6_TYPE);
 
-let item_7 = ''+item_6;
-let item_7_type = typeof item_7
-console.log('item_7==' + item_7, 'item_7_type==' + item_7_type);
+let ITEM_7 = '' + ITEM_6;
+let ITEM_7_TYPE = typeof ITEM_7;
+console.log('ITEM_7==' + ITEM_7, 'ITEM_7_TYPE==' + ITEM_7_TYPE);
