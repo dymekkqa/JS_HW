@@ -14,15 +14,17 @@
 
 */
 // by For
-for(i=0; i<=10; i++){
+for(let i=10; i>=0; i--){
     console.log(i)
 }
 
 // by while
 
-let arg = 0;
-while(arg<=10)
-    console.log(arg++);
+let arg = 10;
+while (arg >= 0) {
+    console.log(arg--);
+}
+
 
 // by for
 

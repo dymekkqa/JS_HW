@@ -8,7 +8,7 @@ let word = 'WORD'.toLocaleLowerCase()
 vowels = "aeiou"
 vowels_count = 0
 consonants_count = 0
-for(i of word){
+for(let i of word){
     if(vowels.includes(i)){
         vowels_count++;
         }
@@ -31,33 +31,33 @@ function cesar(str, offset){
     const alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
     const alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let cesar_word = '';
-    for(i of str){
-        if(!alphabet.includes(i) && !alphabetUpper.includes(i)){
-            cesar_word += i;
+    for(let char of str){
+        if(!alphabet.includes(char) && !alphabetUpper.includes(char)){
+            cesar_word += char;
         }
         else if(offset === 'right'){
-            if(alphabet.includes(i)){
-                let index = alphabet.indexOf(i)+1;
+            if(alphabet.includes(char)){
+                let index = alphabet.indexOf(char)+1;
                 cesar_word += alphabet[index];
             }            
             else {
-                let index = alphabetUpper.indexOf(i)+1
+                let index = alphabetUpper.indexOf(char)+1
                 cesar_word += alphabetUpper[index]
             }
         }
         else if(offset === 'left'){
-            if(alphabet.includes(i) && i !== 'a'){
-                let index = alphabet.indexOf(i) - 1;
+            if(alphabet.includes(char) && char !== 'a'){
+                let index = alphabet.indexOf(char) - 1;
                 cesar_word += alphabet[index];
             }
-            else if(alphabetUpper.includes(i) && i !== 'A'){
-                let index = alphabetUpper.indexOf(i)-1;
+            else if(alphabetUpper.includes(char) && char !== 'A'){
+                let index = alphabetUpper.indexOf(char)-1;
                 cesar_word += alphabetUpper[index];
             }
-            else if(alphabet.includes(i) && i === 'a'){
+            else if(alphabet.includes(char) && char === 'a'){
                 cesar_word += alphabet[alphabet.length-1];
             }
-            else if(alphabetUpper.includes(i) && i === 'A'){
+            else if(alphabetUpper.includes(char) && char === 'A'){
                 cesar_word += alphabetUpper[alphabetUpper.length-1];
             }
         
@@ -65,4 +65,4 @@ function cesar(str, offset){
      }
      console.log(cesar_word)
 }
-cesar('Anatoly, Hello', 'left')
+cesar('Anatoly, Hello!', 'left')

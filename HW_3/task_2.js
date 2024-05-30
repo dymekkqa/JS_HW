@@ -85,15 +85,14 @@ convert_by_size(16565846);
  // 4. Написать скрипт, который преобразует любое предложение в camelCase. Первое слово должно начинаться с буквы в нижнем регистре, 
 //у остальных -  верхнем. Пример: I am super engineer => iAmSuperEngineer
 
-let str = 'I am super engineer'.toLowerCase()
-let arr_str = str.split(' ');
+const str = 'I am super engineer'.toLowerCase().split(' ');
 let new_str = '';
 
-for (let i = 0; i < arr_str.length; i++) {
+for (let i = 0; i < str.length; i++) {
     if (i === 0) {         
-        new_str += arr_str[i];
+        new_str += str[i];
     } else {
-        new_str += arr_str[i].replace(arr_str[i][0], arr_str[i][0].toUpperCase());         
+        new_str += str[i].replace(str[i][0], str[i][0].toUpperCase());         
     }
 }
 console.log(new_str);
