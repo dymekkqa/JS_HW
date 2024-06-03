@@ -22,31 +22,31 @@ console.log(reсursionSumNumbers(912345))
 
 
 function recursionEqualSymbols(str) {
-    let re = '';
-    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     for (let i = 0; i < str.length; i++) {
         if (i !== str.length - 1 && str[i] === str[i + 1]) {
             i++;
             let index_alphabet = alphabet.indexOf(str[i]);
-            re += alphabet[index_alphabet + 1];            
+            result += alphabet[index_alphabet + 1];            
         } 
         else {
-            re += str[i];
+            result += str[i];
         }
     }
-    if (re === '') {
+    if (result === '') {
         return str;    
     } 
     else if (str[0] !== str[1]){
-        return re;
+        return result;
     }
     
     else {
-        return recursionEqualSymbols(re);
+        return recursionEqualSymbols(result);
     }
 }
 
-console.log(recursionEqualSymbols('aabc'));
+
 
 
 

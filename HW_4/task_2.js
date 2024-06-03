@@ -43,12 +43,12 @@ function returnWordWithMaxSymbols(sentence){
 
 
 function deleteNumbersAreNotEqual(arr) {    
-    let re = new Set(arr);
-    return Array.from(re)
+    let result = new Set(arr);
+    return Array.from(result);
 
     };
 
-console.log(deleteNumbersAreNotEqual([1,2,2,4]))
+    
 
 function polindrom(str){
     return str === str.split('').reverse().join('')
