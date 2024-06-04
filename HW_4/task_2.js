@@ -30,8 +30,7 @@ function returnWordWithMaxSymbols(sentence){
     let count = 0;
     for(let word of words){
         if(word.length > count){
-            array = []; 
-            array.push(word);
+            array = [word];            
             count = word.length;                  
         }
         else if(word.length === count){
@@ -42,11 +41,9 @@ function returnWordWithMaxSymbols(sentence){
 };
 
 
-function deleteNumbersAreNotEqual(arr) {    
-    let result = new Set(arr);
-    return Array.from(result);
-
-    };
+function getUniqueValues(arr) {    
+    return [...new Set(arr)]
+};
 
     
 

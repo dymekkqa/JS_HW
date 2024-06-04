@@ -13,15 +13,14 @@ function reсursionSumNumbers(num){
         return num;
     }
     let sum = 0;
-    for(let i of String(num).split('')){
+    for(const i of String(num)){
         sum += Number(i);
     }
     return reсursionSumNumbers(sum)
 }
-console.log(reсursionSumNumbers(912345))
 
 
-function recursionEqualSymbols(str) {
+function recursionEqualSymbols(str) {    
     let result = '';
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     for (let i = 0; i < str.length; i++) {
@@ -40,11 +39,18 @@ function recursionEqualSymbols(str) {
     else if (str[0] !== str[1]){
         return result;
     }
-    
+
     else {
         return recursionEqualSymbols(result);
     }
 }
+
+
+
+
+
+
+
 
 
 
