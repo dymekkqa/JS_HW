@@ -20,30 +20,22 @@ function reсursionSumNumbers(num){
 }
 
 
-function recursionEqualSymbols(str) {    
-    let result = '';
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    for (let i = 0; i < str.length; i++) {
-        if (i !== str.length - 1 && str[i] === str[i + 1]) {
-            i++;
-            let index_alphabet = alphabet.indexOf(str[i]);
-            result += alphabet[index_alphabet + 1];            
-        } 
-        else {
-            result += str[i];
+function replaceDoublesSymbols(str) {
+    const abc = 'abcdefghijklmnopqrstuvwxyz';
+    let letters = str.split("");
+    for (let i = 0; i < letters.length; i++) {
+        if (letters[i] === letters[i + 1]) {            
+            let nextIndex = (abc.indexOf(letters[i]) + 1) % abc.length;
+            let nextChar = abc[nextIndex];            
+            letters.splice(i, 2, nextChar);
+            let str1 = letters.join("");
+            return replaceDoublesSymbols(str1);
         }
     }
-    if (result === '') {
-        return str;    
-    } 
-    else if (str[0] !== str[1]){
-        return result;
-    }
-
-    else {
-        return recursionEqualSymbols(result);
-    }
+    return letters.join("");
 }
+
+
 
 
 
