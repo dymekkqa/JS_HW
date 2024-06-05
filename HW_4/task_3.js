@@ -35,8 +35,6 @@ function replaceDoublesSymbols(str) {
     return letters.join("");
 }
 
-console.log(cutDoubles('aabc'));
-console.log(cutDoubles('zz'));
 
 
 
