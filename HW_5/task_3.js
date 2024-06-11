@@ -8,10 +8,8 @@
 function findMissingNum(arr) {    
     arr = [...new Set(arr)];        
     let sum = arr.reduce((sum, num) => sum + num, 0);    
-    let goodSum = 0;    
-    for (let i = 1; i <= arr[arr.length - 1]; i++) {
-        goodSum += i;
-    }        
+    const goodArr = Array.from({length: arr[arr.length - 1]}, (_, index) => index + 1);
+    let goodSum =  goodArr.reduce((sum, num) => sum + num, 0);       
     return goodSum - sum;
 }
 
@@ -40,11 +38,4 @@ function removeDuplicatesFromFile(filePath) {
 }
 
 console.log(removeDuplicatesFromFile(filePath));
-
-
-
-
-
-
-
 
