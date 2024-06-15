@@ -75,25 +75,37 @@ const enterprises = [
         },
       ]
     }
-  ]
+  ];
 
-function sumEmployees(departments) {
-    return departments.reduce(function(total, department) {
-        return total + department.employees_count;
-    }, 0);
-}
-
-function task1(obj) {
+  function task1(obj) {
     obj.forEach(firm => {  
         const totalEmployees = sumEmployees(firm.departments);              
         console.log(`${firm.name} (${totalEmployees})`);
-        firm.departments.forEach(department => {            
-            console.log(`  ${department.name} (${department.employees_count})`);
+        firm.departments.forEach(department => {
+            const employeesWord = getEmployeesWord(department.employees_count);
+            console.log(`  ${department.name} (${department.employees_count} ${employeesWord})`);
         });
     });
-}
+};
+
+
+function sumEmployees(departments) {
+    return departments.reduce((sum, department) => sum + department.employees_count, 0);
+};
+
+
+function getEmployeesWord(count) {
+    if (count % 10 === 1 && count % 100 !== 11) {
+        return 'сотрудник';
+    } else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+        return 'сотрудника';
+    } else {
+        return 'сотрудников';
+    }
+};
 
 task1(enterprises);
+
 
 
 
@@ -103,42 +115,41 @@ task1(enterprises);
 // getEnterpriseName(4) // Предприятие 1
 // getEnterpriseName("Отдел маркетинга") // Предприятие 2
 
-function getEnterpriseName(id){
-    let re = null
-    enterprises.forEach(obj =>{
-        if(obj.id === id){
-            re = obj.name;            
-        }
+function getEnterpriseName(identifier) {
+    let result = null;
+
+    enterprises.find(enterprise => {
+        if (enterprise.id === identifier) {
+            result = enterprise.name;
+            return true;
+        };
+
+        const department = enterprise.departments.find(department => department.name === identifier);
+        if (department) {
+            result = enterprise.name;
+            return true;
+        };
+
+        return false;
     });
-    return re;
+
+    return result;
 };
 
-function getEnterpriseName1(departmenName){
-    dep = null
-    enterprises.forEach(obj => {
-        obj.departments.forEach(department =>{
-            if(department.name === departmenName){
-                dep = obj.name;
-                return;                
-            }
-        });
-    });
-    
-    return dep
-}
-
 console.log(getEnterpriseName(1));
-console.log(getEnterpriseName1("Отдел маркетинга"))
+console.log(getEnterpriseName("Отдел маркетинга"))
 
 // 3. Написать функцию, которая будет добавлять предприятие. В качестве аргумента принимает название предприятия
 
 // Пример:
 // addEnterprise("Название нового предприятия")
 
-function addEnterprise(nameEnterprise){
-    let newObj = {name: nameEnterprise, id: enterprises.length +1, departments: []};
-    enterprises.push(newObj)   
-    return enterprises
+function addEnterprise(nameEnterprise) {    
+    const maxId = enterprises.reduce((max, enterprise) => Math.max(max, enterprise.id), 0);    
+    let newObj = {name: nameEnterprise, id: maxId + 1, departments: []};    
+    enterprises.push(newObj);
+    
+    return enterprises;
 }
 
 console.log(addEnterprise('Предприятие Тест'))
@@ -148,18 +159,18 @@ console.log(addEnterprise('Предприятие Тест'))
 // Пример:
 // addDepartment(1, "Название нового отдела")
 
-function addDepartmentToEnterprise(id, nameDepartment){
-    enterprises.forEach(obj => {        
-            if(obj.id === id){
-                let newDep = {name: nameDepartment, id: obj.departments.length-1, employees_count: 0};
-                obj.departments.push(newDep);                             
-            }
-        });
-    return enterprises
-};       
+function addDepartmentToEnterprise(id, nameDepartment) {
+    enterprises.forEach(obj => {
+        if (obj.id === id) {            
+            const maxDeptId = obj.departments.reduce((max, dept) => Math.max(max, dept.id), 0);            
+            let newDep = { name: nameDepartment, id: maxDeptId + 1, employees_count: 0 };            
+            obj.departments.push(newDep);
+        }
+    });
+    return enterprises;
+}
 
-
-console.log(addDepartmentToEnterprise(4, 'Автотестеры'))
+console.log(addDepartmentToEnterprise(10, 'Автотестеры'));
 
 // 5. Написать функцию для редактирования названия предприятия. Принимает в качестве аргумента id предприятия и новое имя предприятия.
 
@@ -183,33 +194,33 @@ console.log(editEnterprise(4, "Предприятие 4"))
 // Пример:
 // editDepartment(7, "Новое название отдела")
 
-function editDepartment(id, newDepartment){
-    enterprises.forEach(obj =>{
-        if(obj.id === id){
-            obj.departments.name = newDepartment;             
-        };
+function editDepartment(departmentId, newDepartmentName) {
+    enterprises.forEach(enterprise => {
+        enterprise.departments.forEach(department => {
+            if (department.id === departmentId) {
+                department.name = newDepartmentName;
+            }
+        });
     });
-    return enterprises
-};
+    return enterprises;
+}
 
-console.log(editDepartment(4, "AQA"))
+console.log(editDepartment(10, "AQA"))
 
 // 7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
 
 // Пример:
 // deleteEnterprise(1)
 
-function deleteEnterprise(id){
-    enterprises.forEach(obj =>{
-        if(obj.id === id){
-            const index = enterprises.indexOf(obj)
-            enterprises.splice(index, 1)
-        }
-    });
-    return enterprises
-};
+function deleteEnterprise(enterpriseID) {
+    const index = enterprises.findIndex(enterprise => enterprise.id === enterpriseID);
+    if (index !== -1) {
+        enterprises.splice(index, 1);
+    }
+    return enterprises;
+}
 
-console.log(deleteEnterprise(4))
+console.log(deleteEnterprise(10))
 
 
 // 8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
@@ -217,20 +228,16 @@ console.log(deleteEnterprise(4))
 // Пример:
 // deleteDepartment(3)
 
-function deleteDeparment(idOfDep) {
-    enterprises.forEach(obj => {
-        obj.departments.forEach(department => {
-            if (department.id === idOfDep && department.employees_count === 0) {                
-                // delete obj.departments;
-                const index = enterprises.indexOf(department);
-                obj.departments.splice(index, 1)
-            }            
-        });
+function deleteDepartment(departmentId) {
+    enterprises.forEach(enterprise => {
+        const departmentIndex = enterprise.departments.findIndex(department => department.id === departmentId && department.employees_count === 0);
+        if (departmentIndex !== -1) {
+            enterprise.departments.splice(departmentIndex, 1);
+        };
     });
     return enterprises;
-};
-
-console.log(deleteDeparment(10))
+}
+console.log(deleteDepartment(10));
 
 // 9. Написать функцию для переноса сотрудников между отделами одного предприятия. 
 //В качестве аргумента принимает два значения: id отдела, из которого будут переноситься сотрудники и id отдела, в который будут переноситься сотрудники).
@@ -238,26 +245,27 @@ console.log(deleteDeparment(10))
 // Пример:
 // moveEmployees(2, 3)
 
-function moveEmployees(idMoveFrom, idMoveTo){
-    let objDepMoveFrom;    
-    enterprises.forEach(obj => {
-        obj.departments.forEach(department => {
-            if(department.id === idMoveTo){
-                objDepMoveFrom = department;                
-                obj.departments.splice(enterprises.indexOf(department), 1)
-            }   
-        });         
-    });
-    enterprises.forEach(obj => {
-        if (obj.departments) { 
-            obj.departments.forEach(department => {
-                if(department.id === idMoveFrom){
-                    obj.departments.push(objDepMoveFrom);
-                }
-            });
+function moveEmployees(idMoveFrom, idMoveTo) {
+    enterprises.forEach(enterprise => {
+        let departmentFrom = null;
+        let departmentTo = null;
+        
+        enterprise.departments.forEach(department => {
+            if (department.id === idMoveFrom) {
+                departmentFrom = department;
+            }
+            if (department.id === idMoveTo) {
+                departmentTo = department;
+            }
+        });
+        
+        if (departmentFrom && departmentTo) {
+            departmentTo.employees_count += departmentFrom.employees_count;
+            departmentFrom.employees_count = 0;
         }
     });
-    return enterprises
-}
+    return enterprises;
+};
 
-console.log(moveEmployees(2, 6));
+console.log(moveEmployees(2, 3)); 
+console.log(moveEmployees(6, 8));
