@@ -143,29 +143,41 @@ console.log(getEnterpriseName("Отдел маркетинга"));
 // addEnterprise("Название нового предприятия")
 
 function addEnterprise(nameEnterprise) {    
-    const maxId = enterprises.reduce((max, enterprise) => Math.max(max, enterprise.id), 0);    
+    const maxId = sumIds(enterprises)   
     let newObj = {name: nameEnterprise, id: maxId + 1, departments: []};    
     enterprises.push(newObj);
     
     return getEnterpriseByIdOrName(nameEnterprise);
-};
+  };
+
+function sumIds() {
+    const ids = enterprises.reduce((res, el) => {
+      res.push(el.id);
+      if (el.departments) res.push(...el.departments.flatMap((el) => el.id));
+      return res;
+    }, []);
+    return Math.max(...ids);
+    
+  };
 
 console.log(addEnterprise('Предприятие Тест'))
+
+
 
 // 4. Написать функцию, которая будет добавлять отдел в предприятие. В качестве аргумента принимает id предприятия, в которое будет добавлен отдел и название отдела.
 
 // Пример:
 // addDepartment(1, "Название нового отдела")
 
-function addDepartmentToEnterprise(id, nameDepartment) {
+function addDepartmentToEnterprise(id, nameDepartment) {    
     let departments = getEnterpriseByIdOrName(id).departments;
-    const maxDeptId = departments.reduce((max, dept) => Math.max(max, dept.id), 0);            
+    const maxDeptId = sumIds();           
     let newDep = { name: nameDepartment, id: maxDeptId + 1, employees_count: 0 };
     departments.push(newDep);
-    return enterprises;
+    return newDep;
 };
 
-console.log(addDepartmentToEnterprise(10, 'Автотестеры'));
+console.log(addDepartmentToEnterprise(11, 'Автотестеры'));
 
 // 5. Написать функцию для редактирования названия предприятия. Принимает в качестве аргумента id предприятия и новое имя предприятия.
 
@@ -177,7 +189,7 @@ function editEnterprise(id, newFirmName){
     return getEnterpriseByIdOrName(id).name;
 };
 
-console.log(editEnterprise(10, "Предприятие 4"));
+console.log(editEnterprise(11, "Предприятие 4"));
 
 
 // 6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела.
@@ -192,7 +204,7 @@ function editDepartment(departmentId, newDepartmentName) {
     return foundDeparment    
 }
 
-console.log(editDepartment(10, "AQA"))
+console.log(editDepartment(12, "AQA"))
 
 // 7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
 
@@ -207,7 +219,7 @@ function deleteEnterprise(enterpriseID) {
     return enterprises;
 }
 
-console.log(deleteEnterprise(10))
+console.log(deleteEnterprise(11))
 
 
 // 8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
