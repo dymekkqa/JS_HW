@@ -1,10 +1,13 @@
 //task 1
 
 const counter = (n) => {
-    let start = 1;
+    let numbers = Array.from({ length: n }, (_, i) => i + 1);    
     return () => {        
-        if (start <= n){
-            console.log(start++);
+        if (numbers.length > 0){
+            randomIndex = Math.floor(Math.random() * numbers.length);
+            re = numbers[randomIndex];
+            numbers.splice(randomIndex, 1)
+            console.log(re);
         }
         else{
             console.log('All number were received')
