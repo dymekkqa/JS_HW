@@ -82,11 +82,9 @@ class Team {
         const taskToUpdate = Array.from(this.tasks).find(task => task.featureName === oldTask.featureName);
 
         if (taskToUpdate) {            
-            taskToUpdate.featureName = newTaskData.featureName;
-            taskToUpdate.estimations = newTaskData.estimations;
-            taskToUpdate.userStoryNumber = newTaskData.userStoryNumber;
+            taskToUpdate.updateTask(newTaskData);
             return true;
-        }       
+        }      
     }
     
 }
