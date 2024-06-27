@@ -1,9 +1,11 @@
 
 // 1
-function delayTwoSeconds(){
-    setTimeout(()=> {console.log('Hello')}, 2000)
-};
-delayTwoSeconds();
+function delay(callback, milliseconds) {
+  setTimeout(callback, milliseconds);
+}
+
+delay(() => console.log('hello'), 2000);
+
 
 // 2
 const promise1 = new Promise((resolve, reject) => {setTimeout(()=> {resolve('After 3 seconds')}, 3000)});
