@@ -41,32 +41,32 @@ async function getSumPhotosByAlbumId(albumId){
 };
 
 async function getUsersAndAlbums() {
-  const usersArr = await getUsers();
-  const albumPromises = usersArr.map(async (user) => {
-    const albums = await getAlbumsById(user.id);
-    const albumsWithPhotosCount = await Promise.all(albums.map(async (album) => {
-      const photosCount = await getSumPhotosByAlbumId(album.id);
-      return { ...album, photosCount };
-    }));
-    return { ...user, albums: albumsWithPhotosCount };
-  });
-  const usersWithAlbums = await Promise.all(albumPromises);    
+    const usersArr = await getUsers();
+    const albumPromises = usersArr.map(async (user) => {
+      const albums = await getAlbumsById(user.id);
+      const albumsWithPhotosCount = await Promise.all(albums.map(async (album)=>{
+        const photosCount = await getSumPhotosByAlbumId(album.id);
+        return {...album, photosCount}
+      }))
+      return { ...user, albums:albumsWithPhotosCount };
+    });
+    const usersWithAlbums = await Promise.all(albumPromises);    
   
-  const result = usersWithAlbums.map(user => {
-    return `
-    name: ${user.name}
-    email: ${user.email}
-    phone: ${user.phone}
-    company: ${user.company.name}
-    albums:
-      ${user.albums.map(album => `
-        title: ${album.title}
-        photosCount: ${album.photosCount}
-      `).join('\n      ')}
+    const result = usersWithAlbums.map(user => {
+      return `
+        name: ${user.name}
+        email: ${user.email}
+        phone: ${user.phone}
+        company: ${user.company.name}
+        lbums:
+        ${user.albums.map(album => `
+          title: ${album.title}
+          photoCount: ${album.photoCount}
+        `).join('\n        ')}
     `;
-  }).join('\n\n');
+    }).join('\n\n');
   
-  return result;
-};
-
+    return result
+  };
+  
 getUsersAndAlbums().then(result => console.log(result));
