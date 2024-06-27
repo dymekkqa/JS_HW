@@ -27,26 +27,46 @@ async function getAlbumsById(userId){
     }
 };
 
-async function getUsersAndAlbums() {
-    const usersArr = await getUsers();
-    const albumPromises = usersArr.map(async (user) => {
-      const albums = await getAlbumsById(user.id);
-      return { ...user, albums };
-    });
-    const usersWithAlbums = await Promise.all(albumPromises);    
-  
-    const result = usersWithAlbums.map(user => {
-      return `
-        name: ${user.name}
-        email: ${user.email}
-        phone: ${user.phone}
-        company: ${user.company.name}
-        albums:
-          ${user.albums.map(album => album.title).join('\n        ')}
-      `;
-    }).join('\n\n');
-  
-    return result
+async function getSumPhotosByAlbumId(albumId){
+  try{
+    const response = await fetch(`${url}/photos?albumId=${albumId}`);
+      if (!response.ok){
+        throw new Error('Network response is not ok');
+    };
+    const data = await response.json();
+    return data.length
+  } catch (error) {
+    console.log(error);
   }
+};
+
+async function getUsersAndAlbums() {
+  const usersArr = await getUsers();
+  const albumPromises = usersArr.map(async (user) => {
+    const albums = await getAlbumsById(user.id);
+    const albumsWithPhotosCount = await Promise.all(albums.map(async (album) => {
+      const photosCount = await getSumPhotosByAlbumId(album.id);
+      return { ...album, photosCount };
+    }));
+    return { ...user, albums: albumsWithPhotosCount };
+  });
+  const usersWithAlbums = await Promise.all(albumPromises);    
   
+  const result = usersWithAlbums.map(user => {
+    return `
+    name: ${user.name}
+    email: ${user.email}
+    phone: ${user.phone}
+    company: ${user.company.name}
+    albums:
+      ${user.albums.map(album => `
+        title: ${album.title}
+        photosCount: ${album.photosCount}
+      `).join('\n      ')}
+    `;
+  }).join('\n\n');
+  
+  return result;
+};
+
 getUsersAndAlbums().then(result => console.log(result));

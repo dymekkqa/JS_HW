@@ -5,15 +5,9 @@ class Task {
         this.estimations = estimations;
     }
     updateTask(newData) {
-        if (newData.featureName) {
-            this.featureName = newData.featureName;
-        }
-        if (newData.userStoryNumber) {
-            this.userStoryNumber = newData.userStoryNumber;
-        }
-        if (newData.estimations) {
-            this.estimations = newData.estimations;
-        }
+        this.featureName = newData.featureName || 'Forget to provide a name';
+	    this.userStoryNumber = newData.userStoryNumber || -1;
+	    this.estimations = newData.estimations || 'Forget to estimate';
     }
 }
 module.exports = Task;
