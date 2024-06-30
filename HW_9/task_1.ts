@@ -26,9 +26,9 @@ export interface IItEmployee {
 };
 
 export enum OCCUPATION {
-    Developer = 'Developer',
-    Tester = 'Tester',
-    Manager = 'Manager'
+    DEVELOPER = 'Developer',
+    TESTER = 'Tester',
+    MANAGER = 'Manager'
 };
 
 export interface IAddress {
@@ -45,7 +45,7 @@ export const object: IItEmployee = {
     surname: 'TSovski',
     salary: 1,
     grade: 'middle',
-    occupation: OCCUPATION.Tester,
+    occupation: OCCUPATION.TESTER,
     projectNames: ['Regression tests'],
     address: {
         country: 'Belarus',

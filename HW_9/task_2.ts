@@ -64,7 +64,9 @@ console.log(getEmployeeInfo(object));
 //   Возвращает же - объект с ключами string, number, boolean и количеством таких значений в объекте или в сумме у всех объектов в массиве.
 
 type TValueTypes = 'string' | 'number' | 'boolean';
-function countValueTypes(input: Record<string, string | number | boolean> | Array<Record<string, string | number | boolean>>): Record<TValueTypes, number> {
+type TCountValueTypesObject = Record<string, string | number | boolean>;
+
+function countValueTypes(input: TCountValueTypesObject | TCountValueTypesObject[]): Record<TValueTypes, number> {
     const result: Record<TValueTypes, number> = {
         'string':0,
         'number': 0,
