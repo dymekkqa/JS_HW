@@ -37,15 +37,18 @@ class TaskStorage<Type extends { id: number }> {
         return this.storage;
     }    
 
-    update(obj: Partial<Type> & {id: number}){
+    update(obj: Partial<Type> & Pick<Type, 'id'>){
         const existObj = this.getById(obj.id);
         if (existObj){
             Object.assign(existObj, obj);
         }
     }
-    remove(id:number){
-        return this.storage.filter(o => o.id === id);
-    }
+    remove(id: number): void {
+        const index = this.storage.findIndex(o => o.id === id);
+        if (index !== -1) {
+          this.storage.splice(index, 1);
+        }
+    }      
 
     getById(id:number){
         return this.storage.find(o => o.id === id);
