@@ -4,7 +4,7 @@ import { beerValue, beerBrand} from "./enums"
 export interface IBeer {
     beerValue: beerValue;
     beerBrand: beerBrand;
-    calculatePrice(): number;
+    // calculatePrice(): number;
 }
 
 export class Beer extends Meal implements IBeer {

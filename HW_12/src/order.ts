@@ -4,7 +4,7 @@ export class Order {
     customerName: string;
     orderItems: Meal[];
     private totalPrice: number;
-    orderId?: number;
+    // orderId?: number;
     
 
     constructor(customerName: string, orderItems: Meal[] = []) {

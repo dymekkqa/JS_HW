@@ -32,13 +32,14 @@ export class Bar {
     }
 
     removeOrderById(id: number): void {
-        for (let i = 0; i < this.orders.length; i++) {
-            if (this.orders[i].orderId === id) {              
-              this.orders.splice(i, 1); 
-              break; 
-            }
-          }
-    }
+        const index = this.orders.findIndex(order => order.orderId === id);
+        if (index !== -1) {
+            this.orders.splice(index, 1);
+        } else {
+            console.error(`Order with ID ${id} not found.`);
+        }
+    }    
+    
 
     getTotalRevenue(): number {        
         return this.orders.reduce((sum, order) => sum + order.order.getTotalPrice(), 0)
